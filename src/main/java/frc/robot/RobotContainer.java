@@ -60,8 +60,27 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    operatorController.a().whileTrue(new PrintOut(PrintConstants.BUTTONA_PRINT_VALUE));
 
-  }
+    operatorController.b().whileTrue(new PrintOut(PrintConstants.BUTTONB_PRINT_VALUE));
+
+    operatorController.x().whileTrue(new PrintOut(PrintConstants.BUTTONX_PRINT_VALUE));
+
+    operatorController.y().whileTrue(new PrintOut(PrintConstants.BUTTONY_PRINT_VALUE));
+    
+
+    operatorController.leftTrigger().whileTrue(new Intake(fuelSubsystem));
+
+    operatorController.rightTrigger().whileTrue(new LaunchSequence(fuelSubsystem));
+
+    operatorController.povLeft().whileTrue(new Eject(fuelSubsystem));
+
+    //TODO: add driver controller option to go slower
+
+    driveSubsystem.setDefaultCommand(new Drive(driveSubsystem, driverController));
+
+    fuelSubsystem.setDefaultCommand(fuelSubsystem.run(() -> fuelSubsystem.stop()));
+    }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
